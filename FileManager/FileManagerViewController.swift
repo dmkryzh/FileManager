@@ -6,9 +6,14 @@
 
 import UIKit
 import Foundation
+import KeychainAccess
 
 
 class FileManagerViewController: UIViewController {
+    
+    let userDefaults = UserDefaults.standard
+    
+    let keychain = Keychain(service: "test", accessGroup: "test").accessibility(.whenUnlocked)
     
     let headerLabel: UILabel = {
         let label = UILabel()
@@ -66,6 +71,73 @@ class FileManagerViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(backToRootFunc), for: .touchUpInside)
         return button
+    }()
+    
+    func repeatEnterPassword() {
+        let alert = UIAlertController(title: "Passwords don't match", message: "Please try again", preferredStyle: .alert)
+        present(alert, animated: true) { [self] in
+            sleep(2)
+            dismiss(animated: true) {
+                loginAlert.textFields?[0].setValue(nil, forKey: "text")
+                secondloginAlert.textFields?[0].setValue(nil, forKey: "text")
+                present(loginAlert, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
+    private var passWordText: String?
+    
+    @objc func addPassword() {
+        passWordText = loginAlert.textFields?[0].text
+    }
+
+    
+    lazy var secondloginAlert: UIAlertController = {
+        let alert = UIAlertController(title: "Registration", message: "Please fill password", preferredStyle: .alert)
+        alert.addTextField() { [self] login in
+            login.textColor = .black
+            login.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+            login.autocapitalizationType = .none
+            login.tintColor = UIColor.init(named: "accentColor")
+            login.autocapitalizationType = .none
+            login.placeholder = "Password"
+        }
+        
+        let secondCreatePassword = UIAlertAction(title: "Повторите пароль", style: .default) { [self] _ in
+            if loginAlert.textFields?[0].text != secondloginAlert.textFields?[0].text {
+                repeatEnterPassword()
+            } else {
+                let alert = UIAlertController(title: "Success", message: "Password is set", preferredStyle: .alert)
+                present(alert, animated: true) {
+                sleep(2)
+                dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+        alert.addAction(secondCreatePassword)
+        return alert
+    }()
+    
+    lazy var loginAlert: UIAlertController = {
+        let alert = UIAlertController(title: "Registration", message: "Please fill password", preferredStyle: .alert)
+        alert.addTextField() { [self] login in
+            login.textColor = .black
+            login.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+            login.autocapitalizationType = .none
+            login.tintColor = UIColor.init(named: "accentColor")
+            login.autocapitalizationType = .none
+            login.placeholder = "Password"
+        }
+        
+        let cretePassword = UIAlertAction(title: "Создайте пароль", style: .default) { [self] _ in
+            
+            present(secondloginAlert, animated: true, completion: nil)
+   
+        }
+        let enterPassword = UIAlertAction(title: "Введите пароль", style: .default)
+        alert.addAction(cretePassword)
+        return alert
     }()
 
     var rootDirectory: URL?
@@ -149,6 +221,7 @@ class FileManagerViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
         view.backgroundColor = .white
         createNavBarItems()
+        present(loginAlert, animated: true, completion: nil)
         
     }
     
