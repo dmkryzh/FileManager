@@ -14,8 +14,6 @@ class SettingsViewController: UIViewController {
     
     let userDefaults = UserDefaults.standard
     
-    var settings: UserDefaults?
-    
     let sortLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -44,16 +42,10 @@ class SettingsViewController: UIViewController {
         return button
     }()
     
-    @objc func resetPasswordLogic() {
-        delegate?.resetPassword.textFields?[0].setValue(nil, forKey: "text")
-        present(delegate!.resetPassword, animated: true, completion: nil)
-    }
-    
-    
     lazy var switchSorting: UISwitch = {
         let switcher = UISwitch()
         if userDefaults.bool(forKey: "sort") {
-        switcher.setOn(true, animated: false)
+            switcher.setOn(true, animated: false)
         } else {
             switcher.setOn(false, animated: false)
         }
@@ -75,26 +67,6 @@ class SettingsViewController: UIViewController {
         return switcher
     }()
     
-    @objc func switchSortDidChange(_ sender: UISwitch){
-        if (sender.isOn == true){
-            userDefaults.setValue(true, forKey: "sort")
-        }
-        else{
-            userDefaults.setValue(false, forKey: "sort")
-        }
-    }
-
-    @objc func switchSizeDidChange(_ sender: UISwitch){
-        if (sender.isOn == true){
-            userDefaults.setValue(true, forKey: "size")
-            delegate?.table.reloadData()
-        }
-        else{
-            userDefaults.setValue(false, forKey: "size")
-            delegate?.table.reloadData()
-        }
-    }
-    
     lazy var constraints = [
         
         sortLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -115,6 +87,33 @@ class SettingsViewController: UIViewController {
         resetPassword.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
     ]
     
+    //MARK: Functions
+    
+    @objc func switchSortDidChange(_ sender: UISwitch){
+        if (sender.isOn == true){
+            userDefaults.setValue(true, forKey: "sort")
+        }
+        else{
+            userDefaults.setValue(false, forKey: "sort")
+        }
+    }
+    
+    @objc func switchSizeDidChange(_ sender: UISwitch){
+        if (sender.isOn == true){
+            userDefaults.setValue(true, forKey: "size")
+            delegate?.table.reloadData()
+        }
+        else{
+            userDefaults.setValue(false, forKey: "size")
+            delegate?.table.reloadData()
+        }
+    }
+    
+    
+    @objc func resetPasswordLogic() {
+        delegate?.resetPassword.textFields?[0].setValue(nil, forKey: "text")
+        present(delegate!.resetPassword, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

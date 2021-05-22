@@ -84,10 +84,6 @@ class FileManagerViewController: UIViewController {
         return alert
     }()
     
-    func actionsForAlertButtons(_ completion: ()->Void ) {
-        
-    }
-    
     let backToRootButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Back to ROOT", for: .normal)
@@ -110,8 +106,6 @@ class FileManagerViewController: UIViewController {
             login.isSecureTextEntry = true
             login.delegate = self
         }
-        
-        
         
         let secondCreatePassword = UIAlertAction(title: "Повторите пароль", style: .default) { [self] _ in
             // если пароль в первом окне не совпадает с парорлем из второго окна то регистрируемся заново
@@ -148,10 +142,7 @@ class FileManagerViewController: UIViewController {
                     }
                 }
             }
-            
-            
         }
-        
         alert.addAction(secondCreatePassword)
         return alert
     }()
@@ -174,8 +165,7 @@ class FileManagerViewController: UIViewController {
             guard alert.textFields?[0].text != keychain["applicationPassword"] else { return }
             dismiss(animated: true) {
                 secondloginAlert.textFields?[0].setValue(nil, forKey: "text")
-                present(secondloginAlert, animated: true, completion: nil)
-                
+                self.present(secondloginAlert, animated: true, completion: nil)
             }
         }
         alert.addAction(cretePassword)
@@ -314,45 +304,12 @@ class FileManagerViewController: UIViewController {
         directory = name
     }
     
-    
     func createFolder(_ name: String) {
         guard let _ = directory else { return }
         let newDirectory = directory!.appendingPathComponent(name, isDirectory: true)
         try? FileManager.default.createDirectory(atPath: newDirectory.path, withIntermediateDirectories: true, attributes: nil)
         currentDirectory(directory!)
         table.reloadData()
-    }
-    
-    //MARK: DidLoad
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(headerLabel)
-        view.addSubview(backToRootButton)
-        view.addSubview(table)
-        NSLayoutConstraint.activate(constraints)
-        view.backgroundColor = .white
-        createNavBarItems()
-    }
-    
-    func displayAlertLogin() {
-        guard !isLogged else { return }
-        present(loginAlert, animated: true, completion: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        displayAlertLogin()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if UserDefaults.standard.bool(forKey: "sort") {
-            contentOfDirectory?.sort(by: <)
-            table.reloadData()
-        } else {
-            contentOfDirectory?.sort(by: >)
-            table.reloadData()
-        }
     }
     
     //MARK: FileSize func
@@ -374,7 +331,38 @@ class FileManagerViewController: UIViewController {
             }
         }
         return fileSize
-        
+    }
+    
+    func displayAlertLogin() {
+        guard !isLogged else { return }
+        present(loginAlert, animated: true, completion: nil)
+    }
+    
+    //MARK: DidLoad
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(headerLabel)
+        view.addSubview(backToRootButton)
+        view.addSubview(table)
+        NSLayoutConstraint.activate(constraints)
+        view.backgroundColor = .white
+        createNavBarItems()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        displayAlertLogin()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if UserDefaults.standard.bool(forKey: "sort") {
+            contentOfDirectory?.sort(by: <)
+            table.reloadData()
+        } else {
+            contentOfDirectory?.sort(by: >)
+            table.reloadData()
+        }
     }
     
     
