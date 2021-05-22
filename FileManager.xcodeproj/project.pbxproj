@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		506212DD2657988100D783DC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506212DC2657988100D783DC /* MainTabBarController.swift */; };
+		506212DF26579FF600D783DC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506212DE26579FF600D783DC /* SettingsViewController.swift */; };
 		50BEE28926530B0A0021A012 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEE28826530B0A0021A012 /* AppDelegate.swift */; };
 		50BEE28B26530B0A0021A012 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEE28A26530B0A0021A012 /* SceneDelegate.swift */; };
 		50BEE28D26530B0A0021A012 /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEE28C26530B0A0021A012 /* FileManagerViewController.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		506212DC2657988100D783DC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		506212DE26579FF600D783DC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		50BEE28526530B0A0021A012 /* FileManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50BEE28826530B0A0021A012 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50BEE28A26530B0A0021A012 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 				50BEE28826530B0A0021A012 /* AppDelegate.swift */,
 				50BEE28A26530B0A0021A012 /* SceneDelegate.swift */,
 				50BEE28C26530B0A0021A012 /* FileManagerViewController.swift */,
+				506212DC2657988100D783DC /* MainTabBarController.swift */,
+				506212DE26579FF600D783DC /* SettingsViewController.swift */,
 				50BEE29126530B0B0021A012 /* Assets.xcassets */,
 				50BEE29326530B0B0021A012 /* LaunchScreen.storyboard */,
 				50BEE29626530B0B0021A012 /* Info.plist */,
@@ -77,7 +83,6 @@
 				8780CFE8BD4D1FBBAAA67535 /* Pods-FileManager.debug.xcconfig */,
 				576826ECE2F4B6831D6413B1 /* Pods-FileManager.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -204,6 +209,8 @@
 			files = (
 				50BEE28D26530B0A0021A012 /* FileManagerViewController.swift in Sources */,
 				50BEE28926530B0A0021A012 /* AppDelegate.swift in Sources */,
+				506212DD2657988100D783DC /* MainTabBarController.swift in Sources */,
+				506212DF26579FF600D783DC /* SettingsViewController.swift in Sources */,
 				50BEE28B26530B0A0021A012 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
