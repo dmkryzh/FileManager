@@ -194,28 +194,28 @@ class FileManagerViewController: UIViewController {
             }
         }
         
-        // смотрим есть ли записи в кей-чейне
-        if ((keychain["applicationPassword"]?.isEmpty) != nil) {
-            
-            let enterPassword = UIAlertAction(title: "Введите пароль", style: .default) { [self] _ in
-                // смотрим совпадает ли пароль со значение в кей-чейне
-                if alert.textFields?[0].text != self.keychain["applicationPassword"] {
-                    let alertFailure = UIAlertController(title: "Failure", message: "Password is wrong, try again", preferredStyle: .alert)
-                    present(alertFailure, animated: true) {
-                        sleep(2)
-                        dismiss(animated: true) {
-                            alert.textFields?[0].setValue(nil, forKey: "text")
-                            present(alert, animated: true, completion: nil)
-                        }
+        let enterPassword = UIAlertAction(title: "Введите пароль", style: .default) { [self] _ in
+            // смотрим совпадает ли пароль со значение в кей-чейне
+            if alert.textFields?[0].text != self.keychain["applicationPassword"] {
+                let alertFailure = UIAlertController(title: "Failure", message: "Password is wrong, try again", preferredStyle: .alert)
+                present(alertFailure, animated: true) {
+                    sleep(2)
+                    dismiss(animated: true) {
+                        alert.textFields?[0].setValue(nil, forKey: "text")
+                        present(alert, animated: true, completion: nil)
                     }
                 }
-                // если сопадает, то юзер залогинен
-                isLogged = true
             }
+            // если сопадает, то юзер залогинен
+            isLogged = true
+        }
+        
+        // смотрим есть ли записи в кей-чейне
+        if ((keychain["applicationPassword"]?.isEmpty) != nil) {
             alert.addAction(enterPassword)
-            
-            
         } else if isLogged {
+            alert.addAction(cretePassword)
+        } else {
             alert.addAction(cretePassword)
         }
         
