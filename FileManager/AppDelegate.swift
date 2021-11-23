@@ -2,8 +2,6 @@
 //  AppDelegate.swift
 //  FileManager
 //
-//  Created by Dmitrii KRY on 17.05.2021.
-//
 
 import UIKit
 

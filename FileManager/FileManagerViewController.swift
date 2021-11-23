@@ -1,8 +1,6 @@
 //
 //  FileManagerViewController.swift
 //
-//  Created by Dmitrii KRY on 17.05.2021.
-//
 
 import UIKit
 import Foundation
